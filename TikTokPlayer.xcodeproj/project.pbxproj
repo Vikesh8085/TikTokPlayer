@@ -13,6 +13,12 @@
 		117EE35A2480A0BD00EA1142 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 117EE3592480A0BD00EA1142 /* Assets.xcassets */; };
 		117EE35D2480A0BD00EA1142 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 117EE35C2480A0BD00EA1142 /* Preview Assets.xcassets */; };
 		117EE3602480A0BD00EA1142 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 117EE35E2480A0BD00EA1142 /* LaunchScreen.storyboard */; };
+		CE66AA9624812021008ACCBF /* video4.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CE66AA9024812020008ACCBF /* video4.mp4 */; };
+		CE66AA9724812021008ACCBF /* video3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CE66AA9124812020008ACCBF /* video3.mp4 */; };
+		CE66AA9824812021008ACCBF /* video2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CE66AA9224812020008ACCBF /* video2.mp4 */; };
+		CE66AA9924812021008ACCBF /* video5.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CE66AA9324812021008ACCBF /* video5.mp4 */; };
+		CE66AA9A24812021008ACCBF /* video6.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CE66AA9424812021008ACCBF /* video6.mp4 */; };
+		CE66AA9B24812021008ACCBF /* video1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CE66AA9524812021008ACCBF /* video1.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +30,12 @@
 		117EE35C2480A0BD00EA1142 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		117EE35F2480A0BD00EA1142 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		117EE3612480A0BD00EA1142 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE66AA9024812020008ACCBF /* video4.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video4.mp4; sourceTree = "<group>"; };
+		CE66AA9124812020008ACCBF /* video3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video3.mp4; sourceTree = "<group>"; };
+		CE66AA9224812020008ACCBF /* video2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video2.mp4; sourceTree = "<group>"; };
+		CE66AA9324812021008ACCBF /* video5.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video5.mp4; sourceTree = "<group>"; };
+		CE66AA9424812021008ACCBF /* video6.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video6.mp4; sourceTree = "<group>"; };
+		CE66AA9524812021008ACCBF /* video1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video1.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +68,7 @@
 		117EE3522480A0BB00EA1142 /* TikTokPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				117EE3752480A5A600EA1142 /* video */,
 				117EE3532480A0BB00EA1142 /* AppDelegate.swift */,
 				117EE3552480A0BB00EA1142 /* SceneDelegate.swift */,
 				117EE3572480A0BB00EA1142 /* ContentView.swift */,
@@ -73,6 +86,19 @@
 				117EE35C2480A0BD00EA1142 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		117EE3752480A5A600EA1142 /* video */ = {
+			isa = PBXGroup;
+			children = (
+				CE66AA9524812021008ACCBF /* video1.mp4 */,
+				CE66AA9224812020008ACCBF /* video2.mp4 */,
+				CE66AA9124812020008ACCBF /* video3.mp4 */,
+				CE66AA9024812020008ACCBF /* video4.mp4 */,
+				CE66AA9324812021008ACCBF /* video5.mp4 */,
+				CE66AA9424812021008ACCBF /* video6.mp4 */,
+			);
+			path = video;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,8 +159,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE66AA9B24812021008ACCBF /* video1.mp4 in Resources */,
+				CE66AA9624812021008ACCBF /* video4.mp4 in Resources */,
 				117EE3602480A0BD00EA1142 /* LaunchScreen.storyboard in Resources */,
+				CE66AA9824812021008ACCBF /* video2.mp4 in Resources */,
 				117EE35D2480A0BD00EA1142 /* Preview Assets.xcassets in Resources */,
+				CE66AA9924812021008ACCBF /* video5.mp4 in Resources */,
+				CE66AA9724812021008ACCBF /* video3.mp4 in Resources */,
+				CE66AA9A24812021008ACCBF /* video6.mp4 in Resources */,
 				117EE35A2480A0BD00EA1142 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
