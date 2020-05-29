@@ -1,4 +1,4 @@
-# TikTokPlayer Using Swift UI
+# TikTokPlayer Using SwiftUI
 
 1. Tiktok Player create using Swift UI
 
