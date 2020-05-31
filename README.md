@@ -8,7 +8,7 @@
 
 4. Welcome for any suggestion and optimization.
 
-5.Working on Refatoring and Other Screens
+5. Working on Refatoring and Other Screens
 
 
 <img src= "screen/singEasy.gif" >
