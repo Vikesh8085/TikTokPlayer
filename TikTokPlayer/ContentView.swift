@@ -26,11 +26,11 @@ struct Home: View {
    @State var top = 0
     @State var VideoData = [
         
-        Video(id: 0, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video3", ofType: "mp4")!)), isReplay: false),
-        Video(id: 1, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video4", ofType: "mp4")!)), isReplay: false),
-        Video(id: 2, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video3", ofType: "mp4")!)), isReplay: false),
-        Video(id: 3, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video4", ofType: "mp4")!)), isReplay: false),
-        Video(id: 4, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video5", ofType: "mp4")!)), isReplay: false),
+        Video(id: 0, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video4", ofType: "mp4")!)), isReplay: false),
+        Video(id: 1, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video1", ofType: "mp4")!)), isReplay: false),
+        Video(id: 2, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video2", ofType: "mp4")!)), isReplay: false),
+        Video(id: 3, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video5", ofType: "mp4")!)), isReplay: false),
+        Video(id: 4, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video3", ofType: "mp4")!)), isReplay: false),
         Video(id: 5, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video6", ofType: "mp4")!)), isReplay: false)
     ]
 
@@ -186,15 +186,34 @@ struct PlayerView: View {
     @Binding var videoContents: [Video]
     var body: some View {
         VStack(spacing: 0) {
-            ForEach(self.videoContents) {content in
-                Player(player: content.player)
-                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-                    .offset(y: -5)
-                    .onAppear {
-                        self.videoContents[0].player.play()
+                ForEach(0..<self.videoContents.count){i in
+                
+                ZStack {
+                    Player(player: self.videoContents[i].player)
+                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                        .offset(y: -5)
+                    
+                    if self.videoContents[i].isReplay {
+                        Button(action: {
+                            self.videoContents[i].isReplay = false
+                            self.videoContents[i].player.seek(to: .zero)
+                            self.videoContents[i].player.play()
+                        }, label: {
+                            Image(systemName: "goforward")
+                                .resizable()
+                                .frame(width: 55, height: 55)
+                                .foregroundColor(.white)
+                        })
+                    }
                 }
+                .onAppear {
+                    self.videoContents[0].player.play()
+                    self.videoContents[0].player.actionAtItemEnd = .none
+                    NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object:  self.videoContents[0].player.currentItem, queue: .main) { (_) in
+                        self.videoContents[0].isReplay = true
+                    }
             }
-            
+            }
         }
     }
 }
@@ -260,8 +279,10 @@ struct PlayerScrollView: UIViewRepresentable {
                     scrollerViewObjct.videoContent[i].player.pause()
                 }
                 scrollerViewObjct.videoContent[index].player.play()
-                
-                
+                scrollerViewObjct.videoContent[index].player.actionAtItemEnd = .none
+                NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object:  scrollerViewObjct.videoContent[index].player.currentItem, queue: .main) { (_) in
+                    self.scrollerViewObjct.videoContent[self.index].isReplay = true
+                }
             }
         }
     }
