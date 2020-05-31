@@ -8,4 +8,4 @@
 
 4. Welcome for any suggestion and optimization.
 
-![Simulator Screen Shot - iPhone 11 Pro Max - 2020-05-31 at 09 21 41](https://user-images.githubusercontent.com/18596963/83344217-54ca1700-a321-11ea-90b8-9f780edef9bb.png)
+![screen](https://user-images.githubusercontent.com/18596963/83344261-e5a0f280-a321-11ea-8c48-9a2bc4c504a0.png)
