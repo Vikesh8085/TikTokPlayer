@@ -27,15 +27,17 @@ struct Home: View {
     @State var VideoData = [
         
         Video(id: 0, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video1", ofType: "mp4")!)), isReplay: false),
-        Video(id: 0, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video2", ofType: "mp4")!)), isReplay: false),
-        Video(id: 0, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video3", ofType: "mp4")!)), isReplay: false),
-        Video(id: 0, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video4", ofType: "mp4")!)), isReplay: false),
-        Video(id: 0, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video5", ofType: "mp4")!)), isReplay: false)
+        Video(id: 1, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video2", ofType: "mp4")!)), isReplay: false),
+        Video(id: 2, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video3", ofType: "mp4")!)), isReplay: false),
+        Video(id: 3, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video4", ofType: "mp4")!)), isReplay: false),
+        Video(id: 4, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video5", ofType: "mp4")!)), isReplay: false),
+        Video(id: 5, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video5", ofType: "mp4")!)), isReplay: false)
+
     ]
 
     var body: some View {
         ZStack {
-           // PlayerView(videoContents: self.$VideoData)
+            PlayerScrollView(videoContent: self.$VideoData)
             VStack() {
                 HStack() {
                     
@@ -166,10 +168,11 @@ struct Home: View {
                 }
                 .padding(.horizontal)
             }
-           // .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
-          //  .padding(.bottom, (UIApplication.shared.windows.first?.safeAreaInsets.bottom)! + 5)
+            .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
+            .padding(.bottom, (UIApplication.shared.windows.first?.safeAreaInsets.bottom)! + 5)
         }
-        .background(Color.red.edgesIgnoringSafeArea(.all))
+        .background(Color.black.edgesIgnoringSafeArea(.all))
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
@@ -187,6 +190,7 @@ struct PlayerView: View {
             ForEach(self.videoContents) {content in
                 Player(player: content.player)
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                    .offset(y: 5)
             }
             
         }
@@ -214,3 +218,21 @@ struct Video: Identifiable {
     var isReplay: Bool
 }
 
+struct PlayerScrollView: UIViewRepresentable {
+    @Binding var videoContent: [Video]
+    func makeUIView(context: Context) -> UIScrollView {
+        let scrollView = UIScrollView()
+        let childView = UIHostingController(rootView: PlayerView(videoContents: self.$videoContent))
+        childView.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * CGFloat( videoContent.count ))
+        scrollView.contentSize = CGSize( width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * CGFloat( videoContent.count ))
+        scrollView.addSubview(childView.view)
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.contentInsetAdjustmentBehavior = .never
+        scrollView.isPagingEnabled = true
+        return scrollView
+    }
+    func updateUIView(_ uiView: UIScrollView, context: Context) {
+        
+    }
+
+}
