@@ -26,13 +26,12 @@ struct Home: View {
    @State var top = 0
     @State var VideoData = [
         
-        Video(id: 0, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video1", ofType: "mp4")!)), isReplay: false),
-        Video(id: 1, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video2", ofType: "mp4")!)), isReplay: false),
+        Video(id: 0, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video3", ofType: "mp4")!)), isReplay: false),
+        Video(id: 1, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video4", ofType: "mp4")!)), isReplay: false),
         Video(id: 2, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video3", ofType: "mp4")!)), isReplay: false),
         Video(id: 3, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video4", ofType: "mp4")!)), isReplay: false),
         Video(id: 4, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video5", ofType: "mp4")!)), isReplay: false),
-        Video(id: 5, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video5", ofType: "mp4")!)), isReplay: false)
-
+        Video(id: 5, player: AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "video6", ofType: "mp4")!)), isReplay: false)
     ]
 
     var body: some View {
@@ -59,9 +58,9 @@ struct Home: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Text("vikesh :P")
-                        .foregroundColor(.white)
-                        .font(.largeTitle)
+//                    Text("vikesh :P")
+//                        .foregroundColor(.white)
+//                        .font(.largeTitle)
                     VStack (spacing: 32){
                         Button(action: {
                             
@@ -186,11 +185,14 @@ class Host: UIHostingController<ContentView> {
 struct PlayerView: View {
     @Binding var videoContents: [Video]
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             ForEach(self.videoContents) {content in
                 Player(player: content.player)
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-                    .offset(y: 5)
+                    .offset(y: -5)
+                    .onAppear {
+                        self.videoContents[0].player.play()
+                }
             }
             
         }
@@ -220,6 +222,10 @@ struct Video: Identifiable {
 
 struct PlayerScrollView: UIViewRepresentable {
     @Binding var videoContent: [Video]
+    func makeCoordinator() -> Coordinator {
+        return PlayerScrollView.Coordinator(superview: self)
+    }
+    
     func makeUIView(context: Context) -> UIScrollView {
         let scrollView = UIScrollView()
         let childView = UIHostingController(rootView: PlayerView(videoContents: self.$videoContent))
@@ -229,10 +235,34 @@ struct PlayerScrollView: UIViewRepresentable {
         scrollView.showsVerticalScrollIndicator = false
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.isPagingEnabled = true
+        scrollView.delegate = context.coordinator
         return scrollView
     }
     func updateUIView(_ uiView: UIScrollView, context: Context) {
-        
+        uiView.contentSize = CGSize( width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * CGFloat( videoContent.count ))
+        for view in uiView.subviews {
+            view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * CGFloat( videoContent.count ))
+        }
     }
 
+    class Coordinator : NSObject, UIScrollViewDelegate {
+        var scrollerViewObjct : PlayerScrollView
+        var index = 0
+        init(superview: PlayerScrollView) {
+            scrollerViewObjct = superview
+        }
+        func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+            let currentIndex = Int(scrollView.contentOffset.y / UIScreen.main.bounds.height)
+            if index != currentIndex {
+                index = currentIndex
+                for i in 0..<scrollerViewObjct.videoContent.count {
+                    scrollerViewObjct.videoContent[i].player.seek(to: .zero)
+                    scrollerViewObjct.videoContent[i].player.pause()
+                }
+                scrollerViewObjct.videoContent[index].player.play()
+                
+                
+            }
+        }
+    }
 }
