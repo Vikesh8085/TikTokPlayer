@@ -1,3 +1,3 @@
 # TikTokPlayer Using SwiftUI
 
-<img src= "screen/screen.png" >
+<img src= "screen/singEasy.gif" >
